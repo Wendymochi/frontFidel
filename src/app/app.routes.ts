@@ -1,3 +1,48 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { MainLayout } from './core/layouts/main-layout/main-layout';
+
+import { Dashboard } from './features/dashboard/pages/dashboard/dashboard';
+import { Productos } from './features/productos/pages/productos/productos';
+import { Categorias } from './features/categorias/pages/categorias/categorias';
+import { Clientes } from './features/clientes/pages/clientes/clientes';
+import { Sucursales } from './features/sucursales/pages/sucursales/sucursales';
+import { Usuarios } from './features/usuarios/pages/usuarios/usuarios';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
+        component: Dashboard
+      },
+      {
+        path: 'productos',
+        component: Productos
+      },
+      {
+        path: 'categorias',
+        component: Categorias
+      },
+      {
+        path: 'clientes',
+        component: Clientes
+      },
+      {
+        path: 'sucursales',
+        component: Sucursales
+      },
+      {
+        path: 'usuarios',
+        component: Usuarios
+      }
+    ]
+  }
+];
