@@ -2,10 +2,15 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { Sidebar } from '@shared/organisms/sidebar/sidebar';
+import { Navbar } from '@shared/organisms/navbar/navbar';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet, Sidebar],
+  imports: [
+    RouterOutlet,
+    Sidebar,
+    Navbar
+  ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })

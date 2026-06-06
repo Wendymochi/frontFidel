@@ -1,0 +1,62 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="save()"
+  class="flex flex-col gap-4"
+>
+
+  <div>
+
+    <label class="block mb-2 font-medium">
+      Nombre
+    </label>
+
+    <input
+      pInputText
+      formControlName="nombre"
+      class="w-full"
+    />
+
+    @if (
+      form.controls.nombre.invalid &&
+      form.controls.nombre.touched
+    ) {
+
+      <small class="text-red-500">
+        El nombre es obligatorio.
+      </small>
+
+    }
+
+  </div>
+
+  <div class="flex items-center gap-2">
+
+    <p-checkbox
+      formControlName="estado"
+      [binary]="true"
+    />
+
+    <label>
+      Activa
+    </label>
+
+  </div>
+
+  <div class="flex justify-end gap-2">
+
+  <p-button
+    type="button"
+    label="Cancelar"
+    severity="secondary"
+    (click)="cancel()"
+  />
+
+  <p-button
+    type="submit"
+    label="Guardar"
+    icon="pi pi-save"
+  />
+
+</div>
+
+</form>
