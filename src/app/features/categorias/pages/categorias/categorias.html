@@ -8,35 +8,29 @@
 
 <div class="bg-white rounded-xl shadow-sm p-4 mb-4">
   <div class="flex gap-4 mb-4">
+    <div class="relative flex-1">
+      <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 z-10 text-gray-400"></i>
 
-  <div class="relative flex-1">
+      <input
+        pInputText
+        type="text"
+        placeholder="Buscar categoría..."
+        style="padding-left: 2.5rem"
+        class="w-full"
+        [value]="searchTerm()"
+        (input)="searchTerm.set($any($event.target).value)"
+      />
+    </div>
 
-    <i
-      class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 z-10 text-gray-400"
-    ></i>
-
-    <input
-      pInputText
-      type="text"
-      placeholder="Buscar categoría..."
-      style="padding-left: 2.5rem"
-      class="w-full"
-      [value]="searchTerm()"
-      (input)="searchTerm.set($any($event.target).value)"
+    <p-select
+      [options]="statusOptions"
+      optionLabel="label"
+      optionValue="value"
+      [ngModel]="statusFilter()"
+      (ngModelChange)="statusFilter.set($event)"
+      class="w-56"
     />
-
   </div>
-
-  <p-select
-    [options]="statusOptions"
-    optionLabel="label"
-    optionValue="value"
-    [ngModel]="statusFilter()"
-    (ngModelChange)="statusFilter.set($event)"
-    class="w-56"
-  />
-
-</div>
   <p-table [value]="filteredCategorias()" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
@@ -72,7 +66,12 @@
               [rounded]="true"
               (click)="editCategoria(categoria)"
             />
-            <p-button icon="pi pi-trash" severity="danger" [rounded]="true" />
+            <p-button
+              [icon]="categoria.estado ? 'pi pi-times' : 'pi pi-check'"
+              [severity]="categoria.estado ? 'danger' : 'success'"
+              [rounded]="true"
+              (click)="toggleStatus(categoria)"
+            />
           </div>
         </td>
       </tr>

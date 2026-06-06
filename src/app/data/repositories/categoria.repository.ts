@@ -49,5 +49,18 @@ export class CategoriaRepository {
   return of(this.categorias[index]);
 
 }
+toggleStatus(id: number): Observable<Categoria | undefined> {
+
+  const categoria = this.categorias.find(
+    categoria => categoria.id === id
+  );
+
+  if (categoria) {
+    categoria.estado = !categoria.estado;
+  }
+
+  return of(categoria);
+
+}
 
 }

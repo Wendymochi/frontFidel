@@ -13,6 +13,7 @@ import { UpdateCategoriaDto } from '@data/dto/update-categoria.dto';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-categorias',
   imports: [
@@ -24,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     ToastModule,
     InputTextModule,
     SelectModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './categorias.html',
   styleUrl: './categorias.css',
@@ -63,8 +64,8 @@ export class Categorias {
   private readonly messageService = inject(MessageService);
 
   onCategoriaSaved(data: { nombre: string; estado: boolean }): void {
-      console.log('ENTRO A GUARDAR');
-  console.log(data);
+    console.log('ENTRO A GUARDAR');
+    console.log(data);
     const categoria = this.selectedCategoria();
 
     if (categoria) {
@@ -132,17 +133,54 @@ export class Categorias {
     });
   });
   readonly statusOptions = [
-  {
-    label: 'Todos',
-    value: 'all',
-  },
-  {
-    label: 'Activos',
-    value: 'active',
-  },
-  {
-    label: 'Inactivos',
-    value: 'inactive',
-  },
-];
+    {
+      label: 'Todos',
+      value: 'all',
+    },
+    {
+      label: 'Activos',
+      value: 'active',
+    },
+    {
+      label: 'Inactivos',
+      value: 'inactive',
+    },
+  ];
+  async toggleStatus(categoria: Categoria): Promise<void> {
+
+  const action = categoria.estado
+    ? 'desactivar'
+    : 'activar';
+
+  const result = await Swal.fire({
+    title: `¿Desea ${action} la categoría?`,
+    text: categoria.nombre,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#2563eb',
+  });
+
+  if (!result.isConfirmed) {
+    return;
+  }
+
+  this.categoriaRepository
+    .toggleStatus(categoria.id)
+    .subscribe(() => {
+
+      this.loadCategorias();
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: categoria.estado
+          ? 'Categoría desactivada correctamente'
+          : 'Categoría activada correctamente',
+      });
+
+    });
+
+}
 }
