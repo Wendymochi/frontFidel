@@ -63,6 +63,8 @@ export class Categorias {
   private readonly messageService = inject(MessageService);
 
   onCategoriaSaved(data: { nombre: string; estado: boolean }): void {
+      console.log('ENTRO A GUARDAR');
+  console.log(data);
     const categoria = this.selectedCategoria();
 
     if (categoria) {

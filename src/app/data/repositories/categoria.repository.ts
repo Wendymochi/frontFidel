@@ -14,10 +14,11 @@ export class CategoriaRepository {
   private categorias: Categoria[] = [...CATEGORIAS_MOCK];
 
   getAll(): Observable<Categoria[]> {
-    return of(this.categorias);
-  }
+  return of([...this.categorias]);
+}
 
   create(dto: CreateCategoriaDto): Observable<Categoria> {
+  console.log('CREATE REPOSITORY', dto);
 
     const nuevaCategoria: Categoria = {
       id: this.categorias.length + 1,
@@ -30,6 +31,8 @@ export class CategoriaRepository {
     return of(nuevaCategoria);
   }
   update(dto: UpdateCategoriaDto) {
+      console.log('UPDATE REPOSITORY', dto);
+
 
   const index = this.categorias.findIndex(
     categoria => categoria.id === dto.id
