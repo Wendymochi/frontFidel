@@ -13,6 +13,7 @@ import { UpdateCategoriaDto } from '@data/dto/update-categoria.dto';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
+import { TagModule } from 'primeng/tag';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-categorias',
@@ -26,6 +27,7 @@ import Swal from 'sweetalert2';
     InputTextModule,
     SelectModule,
     FormsModule,
+    TagModule,
   ],
   templateUrl: './categorias.html',
   styleUrl: './categorias.css',
