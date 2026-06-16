@@ -51,10 +51,14 @@ export class Categorias {
   }
 
   loadCategorias(): void {
-    this.categoriaRepository.getAll().subscribe((categorias) => {
-      this.categorias.set(categorias);
-    });
-  }
+  this.categoriaRepository.getAll().subscribe((categorias) => {
+
+    console.log('CATEGORIAS API =>', categorias);
+
+    this.categorias.set(categorias);
+
+  });
+}
 
   closeDialog(): void {
     this.showDialog.set(false);
@@ -150,6 +154,7 @@ export class Categorias {
   ];
   async toggleStatus(categoria: Categoria): Promise<void> {
 
+    
   const action = categoria.estado
     ? 'desactivar'
     : 'activar';

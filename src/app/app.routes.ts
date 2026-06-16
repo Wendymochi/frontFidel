@@ -8,12 +8,25 @@ import { Categorias } from './features/categorias/pages/categorias/categorias';
 import { Clientes } from './features/clientes/pages/clientes/clientes';
 import { Sucursales } from './features/sucursales/pages/sucursales/sucursales';
 import { Usuarios } from './features/usuarios/pages/usuarios/usuarios';
-
+import { AuthLayout } from './core/layouts/auth-layout/auth-layout';
+import { Login } from './features/auth/pages/login/login';
 export const routes: Routes = [
+   {
+    path: 'auth',
+    component: AuthLayout,
+    children: [
+      {
+        path: 'login',
+        component: Login
+      }
+    ]
+  },
   {
+    
     path: '',
     component: MainLayout,
     children: [
+      
       {
         path: '',
         redirectTo: 'dashboard',

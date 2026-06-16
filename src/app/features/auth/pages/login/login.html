@@ -1,0 +1,55 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+
+  <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+
+    <h1 class="text-2xl font-bold mb-6 text-center">
+      Iniciar Sesión
+    </h1>
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="login()"
+      class="flex flex-col gap-4"
+    >
+
+      <div>
+
+        <label class="block mb-2">
+          Usuario
+        </label>
+
+        <input
+          pInputText
+          formControlName="username"
+          class="w-full"
+        />
+
+      </div>
+
+      <div>
+
+        <label class="block mb-2">
+          Contraseña
+        </label>
+
+        <p-password
+          formControlName="password"
+          [toggleMask]="true"
+          [feedback]="false"
+          styleClass="w-full"
+          inputStyleClass="w-full"
+        />
+
+      </div>
+
+      <p-button
+        type="submit"
+        label="Ingresar"
+        icon="pi pi-sign-in"
+      />
+
+    </form>
+
+  </div>
+
+</div>

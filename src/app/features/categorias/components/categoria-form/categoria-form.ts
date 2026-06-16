@@ -27,6 +27,7 @@ export class CategoriaForm {
     nombre: ['', Validators.required],
     estado: [true],
   });
+  
 
   save(): void {
     if (this.form.invalid) {
@@ -55,5 +56,6 @@ export class CategoriaForm {
   });
 
 });
+
 
 }

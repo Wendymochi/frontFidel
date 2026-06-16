@@ -1,66 +1,57 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
+import { Observable, map } from 'rxjs';
+import { of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Categoria } from '@data/interfaces/categoria.interface';
-import { CreateCategoriaDto } from '@data/dto/create-categoria.dto';
-import { UpdateCategoriaDto } from '@data/dto/update-categoria.dto';
-import { CATEGORIAS_MOCK } from '@data/mocks/categorias.mock';
-
+import { CategoriaApi } from '@data/interfaces/categoria-api.interface';
 @Injectable({
   providedIn: 'root',
 })
 export class CategoriaRepository {
 
-  private categorias: Categoria[] = [...CATEGORIAS_MOCK];
+  private readonly http = inject(HttpClient);
+
+  private readonly endpoint =
+    `${environment.apiUrl}/categorias`;
+
+  private mapCategoria(
+    categoria: CategoriaApi
+  ): Categoria {
+
+    return {
+      id: categoria.id_categoria,
+      nombre: categoria.nombre,
+      estado: categoria.activo,
+    };
+
+  }
 
   getAll(): Observable<Categoria[]> {
-  return of([...this.categorias]);
+
+    return this.http
+      .get<CategoriaApi[]>(`${this.endpoint}/`)
+      .pipe(
+        map(categorias =>
+          categorias.map(categoria =>
+            this.mapCategoria(categoria)
+          )
+        )
+      );
+
+  }
+
+create(dto: any) {
+  return of(null);
 }
 
-  create(dto: CreateCategoriaDto): Observable<Categoria> {
-  console.log('CREATE REPOSITORY', dto);
-
-    const nuevaCategoria: Categoria = {
-      id: this.categorias.length + 1,
-      nombre: dto.nombre,
-      estado: dto.estado,
-    };
-
-    this.categorias.push(nuevaCategoria);
-
-    return of(nuevaCategoria);
-  }
-  update(dto: UpdateCategoriaDto) {
-      console.log('UPDATE REPOSITORY', dto);
-
-
-  const index = this.categorias.findIndex(
-    categoria => categoria.id === dto.id
-  );
-
-  if (index !== -1) {
-
-    this.categorias[index] = {
-      ...dto
-    };
-
-  }
-
-  return of(this.categorias[index]);
-
+update(dto: any) {
+  return of(null);
 }
-toggleStatus(id: number): Observable<Categoria | undefined> {
 
-  const categoria = this.categorias.find(
-    categoria => categoria.id === id
-  );
-
-  if (categoria) {
-    categoria.estado = !categoria.estado;
-  }
-
-  return of(categoria);
-
+toggleStatus(id: number) {
+  return of(null);
 }
 
 }
